@@ -16,7 +16,7 @@ exports.load = function(req, res, next, quizId) {
 exports.index = function(req, res) {
   models.Quiz.findAll().then(
     function(quizes) {
-      res.render('quizes/index', { quizes: quizes});
+      res.render('quizes/index', { textoIndex:"Lista de Preguntas",quizes: quizes});
     }
   ).catch(function(error) { next(error);})
 };
@@ -33,6 +33,32 @@ exports.answer = function(req, res) {
     resultado = 'Correcto';
   }
   res.render('quizes/answer', {quiz: req.quiz, respuesta: resultado});
+};
+
+// GET /quizes/search
+exports.search = function(req, res) {
+  if (req.query.search===undefined){
+      console.log('\nRender search ??? \n');
+      res.render('quizes/search');
+  }
+  else {
+  	  var search = req.query.search;
+      search = search.split(" ").join('%');
+      search = '%' + search + '%';
+  	  var query = { where: ["pregunta  like ?", search] };
+	  models.Quiz.findAll(query).then(
+	    function(quizes) {
+	     if (quizes.length===0){
+	         res.render('quizes/index', { textoIndex:"Pregunta no encontrada.", quizes: quizes});
+         }
+	     else	{
+	     	 console.log("\nPregunta ...."+quizes[0].id+"\n");
+	         res.render('quizes/index', { textoIndex:"Encontrada.", quizes: quizes});
+	     }
+	    }
+	  ).catch(function(error) { next(error);})
+
+  }
 };
 
 // GET /autor

@@ -15,6 +15,8 @@ router.param('quizId', quizController.load);  // autoload :quizId
 router.get('/quizes',                      quizController.index);
 router.get('/quizes/:quizId(\\d+)',        quizController.show);
 router.get('/quizes/:quizId(\\d+)/answer', quizController.answer);
+// practica search
+router.get('/quizes/search',               quizController.search);
 router.get('/author',quizController.autor);
 
 module.exports = router;
