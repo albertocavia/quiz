@@ -52,7 +52,6 @@ exports.search = function(req, res) {
 	         res.render('quizes/index', { textoIndex:"Pregunta no encontrada.", quizes: quizes});
          }
 	     else	{
-	     	 console.log("\nPregunta ...."+quizes[0].id+"\n");
 	         res.render('quizes/index', { textoIndex:"Encontrada.", quizes: quizes});
 	     }
 	    }
