@@ -73,7 +73,7 @@ exports.create = function(req, res) {
 exports.search = function(req, res) {
   if (req.query.search===undefined){
       console.log('\nRender search ??? \n');
-      res.render('quizes/search');
+      res.render('quizes/search', { errors: []});
   }
   else {
   	  var search = req.query.search;
@@ -83,10 +83,10 @@ exports.search = function(req, res) {
 	  models.Quiz.findAll(query).then(
 	    function(quizes) {
 	     if (quizes.length===0){
-	         res.render('quizes/index', { textoIndex:"Pregunta no encontrada.", quizes: quizes});
+	         res.render('quizes/index', { textoIndex:"Pregunta no encontrada.", quizes: quizes, errors: []});
          }
 	     else	{
-	         res.render('quizes/index', { textoIndex:"Encontrada.", quizes: quizes});
+	         res.render('quizes/index', { textoIndex:"Encontrada.", quizes: quizes, errors: []});
 	     }
 	    }
 	  ).catch(function(error) { next(error);})
@@ -96,5 +96,5 @@ exports.search = function(req, res) {
 
 // GET /autor
 exports.autor=function(req,res){
-	res.render('author',{autor:'Alberto Cavia',foto:'/images/foto.png'});
+	res.render('author',{autor:'Alberto Cavia',foto:'/images/foto.png', errors: []});
 };
