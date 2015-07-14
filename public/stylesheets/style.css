@@ -1,5 +1,7 @@
 *					{margin:0;padding: 0;}
-body 				{font: 16px Georgia, serif;}
+body 				{font-family: 'Open Sans', Helvetica, sans-serif;
+                     font-size:16px;}
+
 
 #page-wrap			{margin:2% auto; color:white;}
 #page-wrap >.main	{border:1px solid #999; padding:1%;
@@ -18,3 +20,5 @@ nav span			{margin: 0px 10px 0px 0px;}
 #humanidades		{color:blue;}
 #tecnologia			{color:orange;}
 #ocio				{color:black;}
+#stadistics         {border: 1px solid black;padding: 3px;}
+#stadisticsval      {border: 1px solid black;text-align: right;width:50px;padding: 3px;}

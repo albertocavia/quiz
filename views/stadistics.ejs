@@ -1,0 +1,8 @@
+<h3><%= titulo %></h3><p>
+<table id="stadistics" >
+  <% for (index in estadisticas) { %>        
+    <tr>
+      <td>* <%=index %> </td><td id="stadisticsval"> <%=estadisticas[index] %></td>
+    </tr> 
+  <% } %>
+</table>

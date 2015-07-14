@@ -1,4 +1,5 @@
 var models=require('../models/model.js');
+var misEstadisticas = require ('../app.js');
 
 // Autoload - factoriza el código si ruta incluye :quizId
 exports.load = function(req, res, next, quizId) {
@@ -37,7 +38,11 @@ exports.answer = function(req, res) {
   var resultado = 'Incorrecto';
   if (req.query.respuesta === req.quiz.respuesta) {
     resultado = 'Correcto';
+    misEstadisticas.contAciertos+=1;
   }
+  else {
+    misEstadisticas.contErrores+=1;
+  } 
   res.render(
     'quizes/answer', 
     { quiz: req.quiz, 
@@ -140,3 +145,4 @@ exports.search = function(req, res) {
 exports.autor=function(req,res){
 	res.render('author',{autor:'Alberto Cavia',foto:'/images/foto.png', errors: []});
 };
+

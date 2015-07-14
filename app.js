@@ -12,6 +12,29 @@ var routes = require('./routes/index');
 
 var app = express();
 
+// variables de estadisticas
+var contAccesosEstadisticas = 0;
+var contAccesosLogin = 0;
+var contAciertos = 0;
+var contErrores = 0;
+exports.contAccesosEstadisticas=contAccesosEstadisticas;
+exports.contAccesosLogin=contAccesosLogin;
+exports.contAciertos=contAciertos;
+exports.contErrores=contErrores;
+
+// time our session
+//var timeOutSession= (2*60*1000); // 2 minutos
+var timeOutSession= (10*1000);   // 10 segundoa
+
+
+// test timer
+//var timeout = express.timeout // express v3 and below
+//var timeout = require('connect-timeout'); //express v4
+//app.use(timeout('10s'));
+//app.use(haltOnTimedout);
+
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -22,11 +45,23 @@ app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
-app.use(cookieParser('Quiz 2015'));
+app.use(cookieParser('Quiz acz 2015'));
 app.use(session());
 
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
+
+// timeout session
+app.use(function(req, res, next) {
+    if (req.session.user) {
+      if (Date.now() - req.session.user.timeOutSession > timeOutSession) {
+        delete req.session.user;
+      } else {
+        req.session.user.timeOutSession = Date.now();
+    }
+  }
+  next();
+});
 
 
 // Helpers dinamicos:
@@ -77,5 +112,12 @@ app.use(function(err, req, res, next) {
         errors: []
     });
 });
+
+/*
+function haltOnTimedout(req, res, next){
+  if (!req.timedout) next();
+//    res.send(408);
+}
+*/
 
 module.exports = app;
