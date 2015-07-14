@@ -23,8 +23,8 @@ exports.contAciertos=contAciertos;
 exports.contErrores=contErrores;
 
 // time our session
-//var timeOutSession= (2*60*1000); // 2 minutos
-var timeOutSession= (10*1000);   // 10 segundoa
+var timeOutSession= (2*60*1000); // 2 minutos
+//var timeOutSession= (10*1000);   // 10 segundoa
 
 
 // test timer
